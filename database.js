@@ -1,13 +1,8 @@
 const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize('aurea connection', 'root', '', { 
+const sequelize = new Sequelize('aurea', 'root', '', { 
     host: 'localhost',
     dialect: 'mysql'
 });
 
-try {
-    await sequelize.authenticate();
-    console.log('Conectado');
-} catch (error) {
-    console.error('Não foi possível conectar :', error);
-}
+module.exports = sequelize;

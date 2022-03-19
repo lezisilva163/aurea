@@ -7,7 +7,9 @@ const router = express.Router();
 
 router.get('/', LoginController.login);
 router.get('/balance/calculate', BalanceController.balance);
-router.get('/products/create', ProductController.posts);
 router.post('/products/create', ProductController.create);
+router.get('/products/list', ProductController.list);
+router.delete('/products/delete', ProductController.delete);
+router.patch('/products/:id/update', ProductController.update);
 
 module.exports = router;
