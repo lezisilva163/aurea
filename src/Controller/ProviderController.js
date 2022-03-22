@@ -39,7 +39,16 @@ class ProviderController {
 
             return res.status(202).json({ 'data' : provider });
         } catch (error) {
-            return res.status(500).json({ 'error' : error.message })
+            return res.status(500).json({ 'error' : error.message });
+        }
+    }
+
+    async list(req,res) {
+        try {
+            const providers = await Provider.findAll();
+            return res.status(200).json({'data' : providers});
+        } catch (error) {
+            return res.status(500).json({ 'error' : error.message });
         }
     }
 }
