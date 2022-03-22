@@ -7,13 +7,13 @@ class ProductController {
 
             product.sizes.map(async item => {
                 await Product.create({
-                    "type" : "shirt",
-                    "name" : "camiseta aurea básicas",
+                    "type" : item.type,
+                    "name" : item.name,
                     "size" : item.size,
                     "quantity" : item.quantity,
-                    "color" : "Black",
-                    "value" : "99.99",
-                    "provider" : "Dom Santo Confeccione"
+                    "color" : item.color,
+                    "value" : item.value,
+                    "provider" : item.provider
                 })
             });
 

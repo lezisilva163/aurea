@@ -40,6 +40,9 @@ const Balance = database.define('balance', {
     },
     cac: {
         type: Sequelize.DECIMAL(10,2)
+    },
+    calc_profit: {
+        type: Sequelize.DECIMAL(10,2)
     }
 });
 
