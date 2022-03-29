@@ -2,6 +2,8 @@ const res = require('express/lib/response');
 const fs = require('fs');
 const moment = require('moment');
 const ProviderOrder = require('../models/ProviderOrderModel');
+const db = require('./../../database');
+require('dotenv').config();
 
 
 class ProviderOrderController {
@@ -38,7 +40,14 @@ class ProviderOrderController {
 
     async list (req, res){
         try {
-            const orders = await ProviderOrder.findAll();
+            const orders = await db.query
+            (`
+                select po.*, pr.company, p.name 
+                from provider_orders po 
+                inner join products p on po.product_id = p.id 
+                inner join providers pr on po.provider_id = pr.id`,
+                { model: ProviderOrder }
+            );
 
             return res.status(200).json({'data' : orders});
         } catch (error) {
