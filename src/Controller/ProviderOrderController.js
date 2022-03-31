@@ -1,9 +1,7 @@
-const res = require('express/lib/response');
 const fs = require('fs');
 const moment = require('moment');
 const ProviderOrder = require('../models/ProviderOrderModel');
 const db = require('./../../database');
-require('dotenv').config();
 
 
 class ProviderOrderController {
