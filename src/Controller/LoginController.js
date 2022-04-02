@@ -1,12 +1,22 @@
 const jwt = require('jsonwebtoken');
+const User = require('./../models/UserModel');
+const db = require('./../../database');
 
 class LoginController {
     async login(req, res){
         try {
-            if(req.body.user === 'leo' && req.body.password === '123'){
+            const [results] = await db.query(
+                `select * from users
+                where email = "${req.body.email}" and password = "${req.body.password}"`
+            );
+
+            if(results[0]){
                 //auth ok
-                const id = 1; //esse id viria do banco de dados
-                const token = jwt.sign({ id }, process.env.SECRET, {
+                const email = results[0].email;
+                const name = results[0].name;
+                const isAdmin = results[0].is_admin;
+
+                const token = jwt.sign({ email, name, isAdmin }, process.env.SECRET, {
                   expiresIn: 3600 // expires in 1 hr
                 });
                 return res.json({ auth: true, token: token });

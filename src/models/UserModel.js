@@ -9,7 +9,8 @@ const User = database.define('user', {
         primaryKey: true
     },
     is_admin: {
-        type : Sequelize.BOOLEAN
+        type : Sequelize.BOOLEAN,
+        allowNull : false
     },
     name: {
         type : Sequelize.STRING,
