@@ -24,7 +24,7 @@ router.post('/balance/create', verifyJwt, BalanceController.create);
 
 router.post('/products/create', verifyJwt, ProductController.create);
 router.get('/products/list', verifyJwt, ProductController.list);
-router.delete('/products/delete', verifyJwt, ProductController.delete);
+router.delete('/products/:id/delete', verifyJwt, ProductController.delete);
 router.patch('/products/:id/update', verifyJwt, ProductController.update);
 
 router.post('/provider/create', verifyJwt, ProviderController.create);

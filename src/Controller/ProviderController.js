@@ -1,23 +1,25 @@
-const Provider = require('../models/ProviderModel');
+const ProviderEntity = require('../entities/ProviderEntity');
+const ProviderModel = require('../models/ProviderModel');
 
 class ProviderController {
     
     async create(req, res) {
         try {
+            const provider = new ProviderEntity(ProviderModel);
 
-            const company = req.body.company;
-            const address = req.body.address;
-            const whatsapp = req.body.whatsapp;
-            const attendant = req.body.attendant;
-            const cnpj = req.body.cnpj;
+            // const company = req.body.company;
+            // const address = req.body.address;
+            // const whatsapp = req.body.whatsapp;
+            // const attendant = req.body.attendant;
+            // const cnpj = req.body.cnpj;
 
-            const provider = await Provider.create({
-                "company" : company,
-                "address" : address,
-                "whatsapp" : whatsapp,
-                "attendant" : attendant,
-                "cnpj" : cnpj
-            });
+            // const provider = await Provider.create({
+            //     "company" : company,
+            //     "address" : address,
+            //     "whatsapp" : whatsapp,
+            //     "attendant" : attendant,
+            //     "cnpj" : cnpj
+            // });
 
             return res.status(201).json({ 'data' : provider });
         } catch (error) {

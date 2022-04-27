@@ -1,26 +1,21 @@
 const Sequelize = require('sequelize');
 const db = require('../../database');
-const User = require('./../models/UserModel');
+const UserEntity = require('../entities/UserEntity');
+const UserModel = require('./../models/UserModel');
 
 class UserController {
     async create(req, res){
         try {
-            const data = req.body;
-            // const isAdmin = req.body.is_admin;
-            // const name = req.body.name;
-            // const email = req.body.email;
-            // const password = req.body.password;
+            // const data = req.body;
+            const user = new UserEntity(UserModel);
 
-            const user = await User.create(data
-                //{
-                //"is_admin" : isAdmin,
-                //"name" : name,
-                //"email" : email,
-                //"password" : password
-            //}
-            );
+            user.setIsAdmin(req.body.is_admin);
+            user.setName(req.body.name);
+            user.setEmail(req.body.email);
+            user.setPassword(req.body.password);
+            await user.create();
 
-            return res.status(201).json({'data' : user});
+            return res.status(201).json({ 'data' : user });
         } catch (error) {
             return res.status(500).json({'message' : error.message});
         }

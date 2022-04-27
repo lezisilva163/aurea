@@ -1,23 +1,22 @@
-const Product = require('../models/ProductModel');
+const ProductEntity = require('../entities/ProductEntity');
+const ProductModel = require('../models/ProductModel');
 
 class ProductController {
     async create(req, res) {
         try {
-            const product = req.body;
-
-            product.sizes.map(async item => {
-                await Product.create({
-                    "type" : item.type,
-                    "name" : item.name,
-                    "size" : item.size,
-                    "quantity" : item.quantity,
-                    "color" : item.color,
-                    "value" : item.value,
-                    "provider" : item.provider
-                })
+            const product = new ProductEntity(ProductModel);
+            req.body.sizes.map(async item => {
+                product.setType(req.body.type);
+                product.setName(req.body.name);
+                product.setSize(item.size);
+                product.setQuantity(item.quantity);
+                product.setColor(req.body.color);
+                product.setValue(req.body.value);
+                product.setProvider(req.body.provider);
+                await product.create();
             });
 
-            return res.status(201).json();
+            return res.status(201).json({});
         } catch (error) {
             return res.status(500).json({'erro' : error.message});
         }
@@ -25,8 +24,10 @@ class ProductController {
 
     async list(req, res) {
         try {
-            const products = await Product.findAll();
-            return res.status(200).json({'data' : products});
+            const products =  new ProductEntity(ProductModel);
+            const data = await products.list();
+
+            return res.status(200).json({'data' : data});
         } catch (error) {
             return res.status(500).json({'erro' : error.message});
         }
@@ -34,13 +35,14 @@ class ProductController {
 
     async update(req, res) {
         try {
-            const product = await Product.findByPk(req.params.id);
-            product.quantity = req.body.quantity || product.quantity;
-            product.value = req.body.value || product.value;
-            product.size = req.body.size || product.size;
-            await product.save();
-
-            return res.status(202).json({'data' : product});
+            const product =  new ProductEntity(ProductModel);
+            const data = await product.find(req.params.id);
+            data.quantity = req.body.quantity || data.quantity;
+            data.value = req.body.value || data.value;
+            data.size = req.body.size || data.size;
+            await data.save();
+            
+            return res.status(202).json({'data' : data});
         } catch (error) {
             return res.status(500).json({'erro' : error.message});
         }
@@ -48,9 +50,10 @@ class ProductController {
 
     async delete(req, res) {
         try {
-            const product = await Product.findByPk(req.query.id);
+            //const product = await Product.findByPk(req.query.id);
+            const product =  new ProductEntity(ProductModel);
+            await product.delete(req.params.id);
 
-            await product.destroy();
             return res.status(204).json({})
         } catch (error) {
             return res.status(500).json({'erro' : error.message});
