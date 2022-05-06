@@ -1,12 +1,15 @@
 const fs = require('fs');
 const moment = require('moment');
-const ProviderOrder = require('../models/ProviderOrderModel');
+const ProviderOrderModel = require('../models/ProviderOrderModel');
 const db = require('./../../database');
+const ProviderOrderEntity = require('./../entities/ProviderOrderEntity');
 
 
 class ProviderOrderController {
     async create(req, res){
         try {
+            const providerOrderEntity = new ProviderOrderEntity(ProviderOrderModel);
+
             const firstPayment = req.files['first_payment'];
             const datasheet = req.files['datasheet'];
             const data = req.body;
