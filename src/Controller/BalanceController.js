@@ -41,7 +41,6 @@ class BalanceController {
             balance.setTaxCnpj(req.body.taxCNPJ);
             balance.setSite(req.body.site);
             balance.setPackages(req.body.packages);
-
             balance.setGifts(req.body.gifts);
             balance.setFreightCost(req.body.freightCost);
             balance.setCac(req.body.cac);
