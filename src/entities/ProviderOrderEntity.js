@@ -109,7 +109,19 @@ class ProviderOrderEntity {
 
     async create(){
         return await this.providerOrderModel.create({
-            
+            "product_id" : this.productId,
+            "provider_id" : this.productId,
+            "total_value" : this.totalValue,
+            "total_paid" : this.totalPaid,
+            "user_name" : this.userName,
+            "first_payment" : this.firstPayment,
+            "first_payment_date" : this.firstPaymentDate,
+            "second_payment" : this.secondPayment,
+            "second_payment_date" : this.secondPaymentDate,
+            "datasheet" : this.datasheet,
+            "reference_product" : this.referenceProduct,
+            "received_order" : this.receivedOrder,
+            "deadline" : this.deadline
         });
     }
 

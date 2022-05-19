@@ -8,7 +8,7 @@ const ProviderOrderEntity = require('./../entities/ProviderOrderEntity');
 class ProviderOrderController {
     async create(req, res){
         try {
-            const providerOrderEntity = new ProviderOrderEntity(ProviderOrderModel);
+            const providerOrder = new ProviderOrderEntity(ProviderOrderModel);
 
             const firstPayment = req.files['first_payment'];
             const datasheet = req.files['datasheet'];
@@ -31,7 +31,7 @@ class ProviderOrderController {
             data.second_payment = data.second_payment || null;
             data.datasheet = `./uploads/${datasheet[0].originalname}`;
 
-            const order = await ProviderOrder.create(data);
+            const order = await providerOrder.create();
 
             return res.status(201).json({'data' : order});
         } catch (error) {

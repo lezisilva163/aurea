@@ -8,7 +8,7 @@ const ProductController = require('./src/Controller/ProductController');
 const ProviderController = require('./src/Controller/ProviderController');
 const ProviderOrderController = require('./src/Controller/ProviderOrderController');
 const UserController = require('./src/Controller/UserController');
-
+const ProductExchangeController = require('./src/Controller/ProductExchangeController');
 
 const router = express.Router();
 
@@ -35,5 +35,7 @@ router.post('/provider-order/create', verifyJwt, upload.fields([{name : 'first_p
 router.get('/provider-order/list', verifyJwt, ProviderOrderController.list);
 
 router.post('/user/create', verifyJwt, UserController.create);
+
+router.post('/product-exchange/create', verifyJwt, ProductExchangeController.create);
 
 module.exports = router;
